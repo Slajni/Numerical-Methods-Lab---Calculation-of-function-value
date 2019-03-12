@@ -19,7 +19,7 @@ def getCoefficients():
 
 
 
-valueOfX = 10   # hardcoded value of x in polynomial
+
 
 
 def normalEvaluation(coefs,val):
@@ -29,6 +29,22 @@ def normalEvaluation(coefs,val):
         valToReturn += val**key * value
     return valToReturn
 
-print(normalEvaluation(getCoefficients(),valueOfX))
+def hornerEvaluation(coefit,val):
+    """Evaluates function value using horners alogirthm"""
+    coefs = coefit.copy()
+    hValue = coefs[len(coefs)-1]
+    del coefs[len(coefs)-1]
+    for i in range(len(coefs)-1,-1,-1):
+        hValue = hValue*val + coefs[i]
+    return hValue
 
 
+coefs = {0:7,1:3,2:2}
+#coefs = getCoefficients()
+valueOfX = 10   # hardcoded value of x in polynomial
+
+print(normalEvaluation(coefs,valueOfX))
+print(hornerEvaluation(coefs,valueOfX))
+
+
+#
