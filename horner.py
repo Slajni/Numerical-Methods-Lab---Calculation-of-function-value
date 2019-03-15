@@ -102,13 +102,13 @@ def findBoundsOfRoots(coefs,step=0.1,start=0.1):
             interval[0] = float("inf")
             break
     if interval[0] == None:
-        interval[0] = jumper
+        interval[0] = -1*jumper
     return interval
 
 
 ##################
 
-def calculateSineFromTaylorPolynomial(value, numberOfTerms = 20):
+def calculateSineFromTaylorPolynomial(value, numberOfTerms):
     """returns the value of sine for given argument (in radians)
 
 
@@ -161,6 +161,7 @@ for i in range(0,times):
     result = normalEvaluation(coefs, valueOfX)
 timePassed= time.time() - timePassed
 print(result)
+print(timePassed)
 
 ### TESTING TIME OF HORNER ALGORITHM
 result = None
@@ -169,6 +170,7 @@ for i in range(0,times):
     result = hornerEvaluation(coefs,valueOfX)
 timePassed = time.time() - timePassed
 print(result)
+print(timePassed)
 
 
 ### FINDING BOUNDS OF ROOTS
@@ -176,16 +178,16 @@ print(findBoundsOfRoots(coefs))
 
 
 #x = float(input("Give me the value of x where you look for your answer: "))
-x = 0.01
+x = 0.1
 #epsylon = float(input("Give me the value of accuracy you look for: "))
 epsylon = 0.001
 
 ### CALCULATING SINE USING TAYLOR SERIES
 
 N = calculateNForGivenAccuracy(epsylon,0)
-results = calculateSineFromTaylorPolynomial(N,x)
+results = calculateSineFromTaylorPolynomial(x,N)
 print(results)
-
+print(N)
 print('Actual value of accuracy for this argument is {}'.format(abs(results-mt.sin(x))))
 
 
