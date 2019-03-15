@@ -1,4 +1,5 @@
 import time 
+import math as mt
 def getCoefficients():
     """Returns a dictionary with coefficients"""
     coeffDict = {}
@@ -75,13 +76,14 @@ def findBoundsOfRoots(coefs,step=0.1,start=0.1):
         jumper += step
         if float(time.time() - timer) > 10:
             interval[1] = float("inf")
+            #break
     if interval[1] == None:
         interval[1] = jumper
     jumper = start
     coefficients = coefs.copy()
     if((len(coefficients)-1)%2 == 1):
-        for coeffitient in coefficients.values():
-            coeffitient *= -1
+        for key in coefficients.keys():
+            coefficients[key] *= -1
     for key in coefficients.keys():
         if(key %2 == 1):
             coefficients[key] *= -1 # TODO: check the version with locals
@@ -89,31 +91,87 @@ def findBoundsOfRoots(coefs,step=0.1,start=0.1):
         jumper += step
         if float(time.time() - timer) > 10:
             interval[0] = float("inf")
+            break
     if interval[0] == None:
         interval[0] = jumper
     return interval
 
 
-coefs = {0:1,1:0,2:1}
+##################
+
+def calculateSineFromTaylorPolynomial(numberOfTerms, value):
+    """returns the value of sine for given argument (in radians)
+
+
+    Keyword arguments:
+    numberOfTerms -- number of terms of taylor polynomial used to calculate sine
+    value -- argument for sine
+    """
+    rsum = 0
+    if numberOfTerms < 1:
+        return rsum
+    else:
+        term = value
+        rsum += term
+        for i in range(3,numberOfTerms,2):
+            term = term * value**2 * (-1) / mt.factorial(i)
+            rsum += term
+        return rsum
+
+
+###################
+
+def calculateNForGivenAccuracy(accuracy, startingPoint):
+    """returns the number of taylor polynomial terms needed to achieve given accuracy in place of derivative calculations
+
+    Keyword arguments:
+    accuracy -- accuracy we want to achieve
+    startingPoints -- argument for which we want to be the center of our approximations
+
+    """
+   
+    N = 0
+    while(x**(N+1)/mt.factorial(N+1)) > accuracy:
+        N = N + 1
+
+    return N
+
+
+coefs = {0:960,1:-328,2:-94,3:7,4:1}
 #coefs = getCoefficients()
 valueOfX = 10   # hardcoded value of x in polynomial
 times = 1 #how many times you want to perform alorithm?
 
+##################
+
+### TESTING TIME OF NORMAL EVALUATION
 timePassed = time.time()
 result = None
-
 for i in range(0,times):
     result = normalEvaluation(coefs, valueOfX)
 timePassed= time.time() - timePassed
-print(timePassed)
+print(result)
+
+### TESTING TIME OF HORNER ALGORITHM
 result = None
 timePassed = time.time()
 for i in range(0,times):
     result = hornerEvaluation(coefs,valueOfX)
 timePassed = time.time() - timePassed
-print(timePassed)
+print(result)
 
+
+### FINDING BOUNDS OF ROOTS
 print(findBoundsOfRoots(coefs))
-print(hornerEvaluation(coefs,10))
-#
+
+
+#x = float(input("Give me the value of x where you look for your answer: "))
+x = 1
+#epsylon = float(input("Give me the value of accuracy you look for: "))
+epsylon = 0.001
+
+N = calculateNForGivenAccuracy(epsylon,0)
+print(calculateSineFromTaylorPolynomial(N,0.01))
+print(mt.sin(0.01))
+print(N)
 
