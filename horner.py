@@ -1,3 +1,12 @@
+"""
+NUMERICAL METHODS LABORATORY 2 - CALCULATION OF FUNCTION VALUE
+
+Damian Kucharski
+Magdalena Rogalska
+
+"""
+
+
 import time 
 import math as mt
 def getCoefficients():
