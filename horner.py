@@ -108,7 +108,7 @@ def findBoundsOfRoots(coefs,step=0.1,start=0.1):
 
 ##################
 
-def calculateSineFromTaylorPolynomial(numberOfTerms, value):
+def calculateSineFromTaylorPolynomial(value, numberOfTerms = 20):
     """returns the value of sine for given argument (in radians)
 
 
@@ -116,6 +116,7 @@ def calculateSineFromTaylorPolynomial(numberOfTerms, value):
     numberOfTerms -- number of terms of taylor polynomial used to calculate sine
     value -- argument for sine
     """
+
     rsum = 0
     if numberOfTerms < 1:
         return rsum
@@ -175,14 +176,16 @@ print(findBoundsOfRoots(coefs))
 
 
 #x = float(input("Give me the value of x where you look for your answer: "))
-x = 1
+x = 0.01
 #epsylon = float(input("Give me the value of accuracy you look for: "))
 epsylon = 0.001
 
 ### CALCULATING SINE USING TAYLOR SERIES
 
 N = calculateNForGivenAccuracy(epsylon,0)
-print(calculateSineFromTaylorPolynomial(N,0.01))
-print(mt.sin(0.01))
-print(N)
+results = calculateSineFromTaylorPolynomial(N,x)
+print(results)
+
+print('Actual value of accuracy for this argument is {}'.format(abs(results-mt.sin(x))))
+
 
