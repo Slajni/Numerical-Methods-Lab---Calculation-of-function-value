@@ -179,6 +179,8 @@ x = 1
 #epsylon = float(input("Give me the value of accuracy you look for: "))
 epsylon = 0.001
 
+### CALCULATING SINE USING TAYLOR SERIES
+
 N = calculateNForGivenAccuracy(epsylon,0)
 print(calculateSineFromTaylorPolynomial(N,0.01))
 print(mt.sin(0.01))
