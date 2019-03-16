@@ -124,7 +124,7 @@ def calculateSineFromTaylorPolynomial(value, numberOfTerms):
         term = value
         rsum += term
         for i in range(3,numberOfTerms,2):
-            term = term * value**2 * (-1) / mt.factorial(i)
+            term = term * value**2 * (-1) / (i-1) / (i-2)
             rsum += term
         return rsum
 
