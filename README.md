@@ -1,4 +1,4 @@
-# NUMERICAL METHODS LABORATORY 2 - CALCULATION OF FUNCTION VALUE
+# NUMERICAL METHODS - CALCULATION OF FUNCTION VALUE
 
 ### I pin this repository as it is my first project in python. I like to look it as reference of my current code.
 
